@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Button } from "primereact/button";
 import { confirmDialog } from "primereact/confirmdialog";
 import { User } from "@/types/User";
 import { useUserContext } from "@/context/users/UserContext";
@@ -108,18 +107,6 @@ export default function useUserTableLogic({ filters }: UserTableProps): UserTabl
 				}
 			},
 		});
-	};
-
-	const actionsBodyTemplate = (rowData: User) => {
-		return (
-			<div className="flex justify-content-center">
-				<Button
-					icon="pi pi-trash"
-					className="p-button-rounded p-button-warning"
-					onClick={() => confirmDelete(rowData)}
-				/>
-			</div>
-		);
 	};
 
 	const onPageChange = (event: PaginatorPageChangeEvent) => {

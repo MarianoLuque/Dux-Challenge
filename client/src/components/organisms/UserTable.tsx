@@ -7,7 +7,7 @@ import { ConfirmDialog } from "primereact/confirmdialog";
 import { User } from "@/types/User";
 import UserFormDialog from "./UserFormDialog";
 import { Toast } from "primereact/toast";
-import { Paginator } from "primereact/paginator";
+import { Paginator, PaginatorRowsPerPageDropdownOptions } from "primereact/paginator";
 import { Dropdown } from "primereact/dropdown";
 import useUserTableLogic from "./UserTableLogic";
 
@@ -49,9 +49,9 @@ export default function UserTable({ filters }: UserTableProps) {
 
 	const emptyMessage = "No hay usuarios disponibles";
 
-	const template = {
+	const paginatorTemplate = {
 		layout: "FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown",
-		RowsPerPageDropdown: (options: any) => {
+		RowsPerPageDropdown: (options: PaginatorRowsPerPageDropdownOptions) => {
 			const dropdownOptions = [
 				{ label: 10, value: 10 },
 				{ label: 20, value: 20 },
@@ -64,7 +64,7 @@ export default function UserTable({ filters }: UserTableProps) {
 						className="p-2"
 						value={options.value}
 						options={dropdownOptions}
-						onChange={options.onChange}
+						onChange={(e) => options.onChange(e.value)}
 					/>
 				</>
 			);
@@ -122,7 +122,7 @@ export default function UserTable({ filters }: UserTableProps) {
 				first={lazyParams.first}
 				rows={lazyParams.rows}
 				onPageChange={onPageChange}
-				template={template}
+				template={paginatorTemplate}
 				className=""
 				totalRecords={totalCount}
 				rowsPerPageOptions={[10, 20, 50]}
