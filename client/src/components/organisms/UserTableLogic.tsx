@@ -13,7 +13,8 @@ interface UserTableProps {
 	filters: { usuario: string; estado: string };
 }
 
-export interface UserTableLogicReturn {
+export interface UserTableLogicReturn {	
+	totalCount: number;
 	selectedUser: User | null;
 	users: User[];
 	dialogVisible: boolean;
@@ -45,18 +46,20 @@ export default function useUserTableLogic({ filters }: UserTableProps): UserTabl
 		rows: 10,
 		page: 1,
 	});
+	const [totalCount, setTotalCount] = useState(0);
 	const toast = useRef<Toast>(null);
 
 	const loadLazyData = async () => {
 		setLoading(true);
 		const { page, rows } = lazyParams;
-		const data = await getUsers(
+		const { totalCount, users } = await getUsers(
 			filters.estado,
 			filters.usuario,
 			rows.toString(),
 			page.toString()
 		);
-		setUsers(data);
+		setUsers(users);
+		setTotalCount(Number(totalCount));
 		setLoading(false);
 	};
 
@@ -133,6 +136,7 @@ export default function useUserTableLogic({ filters }: UserTableProps): UserTabl
 	};
 
 	return {
+		totalCount,
 		selectedUser,
 		users,
 		dialogVisible,

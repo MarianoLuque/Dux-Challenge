@@ -17,6 +17,7 @@ interface UserTableProps {
 
 export default function UserTable({ filters }: UserTableProps) {
 	const {
+		totalCount,
 		selectedUser,
 		users,
 		dialogVisible,
@@ -123,7 +124,7 @@ export default function UserTable({ filters }: UserTableProps) {
 				onPageChange={onPageChange}
 				template={template}
 				className=""
-				totalRecords={100}
+				totalRecords={totalCount}
 				rowsPerPageOptions={[10, 20, 50]}
 			/>
 			<ConfirmDialog />

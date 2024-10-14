@@ -27,7 +27,10 @@ export async function getUsers(
 
 	await delay(2000);
 
-	return await response.json();
+	const totalCount = response.headers.get('X-Total-Count');
+	const users = await response.json();
+
+	return { totalCount, users };
 }
 
 export async function getUser(usuario: string) {
